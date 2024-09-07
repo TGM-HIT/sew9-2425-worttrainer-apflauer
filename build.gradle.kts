@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.json:json:20210307")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
@@ -17,3 +18,4 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
