@@ -7,16 +7,17 @@ import java.util.List;
 
 public class JSONSpeicherStrategie implements SpeicherStrategie {
 
-    private Reader reader;
-    private Writer writer;
-
     @Override
-    public void speichern(List<WortBildPaar> wortBildPaarList, Statistik statistik, String dateiPfad) throws IOException {
+    public void speichern(List<WortBildPaar> wortBildPaarList, int anzahlRichtig, int anzahlFalsch, String dateiPfad) throws IOException {
+        Writer writer = new BufferedWriter(new FileWriter(dateiPfad));
         JSONObject session = new JSONObject();
         session.put("wordBildPaare", wortBildPaarList);
         session.put("aktuellesWordBildPaar", "Irrelevant");
-        session.put("statistik", statistik);
-        this.writer.write(session.toString());
+        session.put("richtige Antworten", anzahlRichtig);
+        session.put("falsche Antworten", anzahlFalsch);
+        writer.write(session.toString());
+        writer.flush();
+        writer.close();
     }
 
     @Override
