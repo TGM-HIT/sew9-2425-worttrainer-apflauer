@@ -30,37 +30,47 @@ public class RechtschreibTrainer {
         this.paare = new ArrayList<>();
         JSONObject jsonObject = this.speicherStrategie.laden(dateiPfad);
 
-        // Lade das JSONArray aus dem JSON-Objekt
         JSONArray wordBildPaareArray = jsonObject.getJSONArray("wordBildPaare");
-
-        // Iteriere über das JSONArray und erstelle WortBildPaar-Objekte
         for (int i = 0; i < wordBildPaareArray.length(); ++i) {
             JSONObject wordBildPaarObject = wordBildPaareArray.getJSONObject(i);
-
-            // Lade die "bild" URL
             String bildUrl = wordBildPaarObject.getString("bild");
-
-            // Extrahiere das "wort" aus dem Bild-URL (letzter Abschnitt vor der Dateiendung)
-            String wort = bildUrl.substring(bildUrl.lastIndexOf("/") + 1, bildUrl.lastIndexOf("."));
-
-            // Erstelle das WortBildPaar-Objekt
+            String wort = wordBildPaarObject.getString("wort");
             WortBildPaar wortBildPaar = new WortBildPaar(bildUrl, wort);
-
-            // Füge das WortBildPaar zur Liste hinzu
             this.paare.add(wortBildPaar);
         }
 
-        // Wähle ein zufälliges Paar aus
         Random r = new Random();
         this.aktuellesPaar = this.paare.get(r.nextInt(this.paare.size()));
     }
 
     public void display() throws IOException {
-        Image image = ImageIO.read(new URL(this.aktuellesPaar.getBild()));
-        image.getScaledInstance(400, 400, Image.SCALE_DEFAULT);
+        // Initialisiere Random für die Zufallsauswahl
+        Random random = new Random();
 
-        JOptionPane.showInputDialog(null, "Rechtschreibtrainer", "AktuellesBild", JOptionPane.QUESTION_MESSAGE, new ImageIcon(image), null, null);
+// Wähle das erste Paar zufällig aus
+        this.aktuellesPaar = this.paare.get(random.nextInt(this.paare.size()));
 
+// Iteriere über die Paare
+        while (!this.paare.isEmpty()) {
+            Image image = ImageIO.read(new URL(this.aktuellesPaar.getBild()));
+            image = image.getScaledInstance(400, 400, Image.SCALE_DEFAULT);
+            String antwort = (String) JOptionPane.showInputDialog(null, "Was ist auf dem Bild zu sehen? (case sensetive)", "AktuellesBild", JOptionPane.QUESTION_MESSAGE, new ImageIcon(image), null, null);
+            if (this.aktuellesPaar.getWort().equals(antwort)) {
+                this.anzahlRichtig++;
+            } else {
+                this.anzahlFalsch++;
+            }
+            this.paare.remove(this.aktuellesPaar);
+            if (this.paare.isEmpty()) {
+                break;
+            }
+            this.aktuellesPaar = this.paare.get(random.nextInt(this.paare.size()));
+        }
+        JOptionPane.showMessageDialog(null, statistikMSG());
     }
 
+    public String statistikMSG() {
+        return "Anzahl richtiger Antworten: " + this.anzahlRichtig + "\n" +
+                "Anzahl falscher Antworten: " + this.anzahlFalsch;
+    }
 }
