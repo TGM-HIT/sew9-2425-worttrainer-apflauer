@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class RechtschreibTrainer {
         this.speicherStrategie = speicherStrategie;
     }
 
-    public void laden(String dateiPfad) throws IOException {
+    public void laden(String dateiPfad) throws IOException, URISyntaxException, IllegalAccessException {
         this.paare = new ArrayList<>();
         JSONObject jsonObject = this.speicherStrategie.laden(dateiPfad);
 
@@ -36,12 +37,14 @@ public class RechtschreibTrainer {
         for (int i = 0; i < wordBildPaareArray.length(); ++i) {
             JSONObject wordBildPaarObject = wordBildPaareArray.getJSONObject(i);
 
-            // Hier musst du das JSONObject in ein WortBildPaar-Objekt umwandeln
-            // Annahme: WortBildPaar hat einen Konstruktor, der passende Werte akzeptiert
-            WortBildPaar wortBildPaar = new WortBildPaar(
-                    wordBildPaarObject.getString("bild"),   // Beispiel für ein Feld "bild"
-                    wordBildPaarObject.getString("wort")  // Beispiel für ein Feld "wort"
-            );
+            // Lade die "bild" URL
+            String bildUrl = wordBildPaarObject.getString("bild");
+
+            // Extrahiere das "wort" aus dem Bild-URL (letzter Abschnitt vor der Dateiendung)
+            String wort = bildUrl.substring(bildUrl.lastIndexOf("/") + 1, bildUrl.lastIndexOf("."));
+
+            // Erstelle das WortBildPaar-Objekt
+            WortBildPaar wortBildPaar = new WortBildPaar(bildUrl, wort);
 
             // Füge das WortBildPaar zur Liste hinzu
             this.paare.add(wortBildPaar);
