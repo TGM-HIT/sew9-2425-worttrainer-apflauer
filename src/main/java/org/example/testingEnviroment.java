@@ -1,11 +1,8 @@
 package org.example;
 
-import org.json.JSONObject;
-
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class testingEnviroment {
 

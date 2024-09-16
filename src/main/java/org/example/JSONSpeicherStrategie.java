@@ -13,26 +13,21 @@ public class JSONSpeicherStrategie implements SpeicherStrategie {
         Writer writer = new BufferedWriter(new FileWriter(dateiPfad));
         JSONObject session = new JSONObject();
 
-        // Erstelle ein JSONArray für die WortBildPaar-Objekte
         JSONArray wordBildPaareArray = new JSONArray();
 
         for (WortBildPaar paar : wortBildPaarList) {
-            // Erstelle ein JSONObject für jedes WortBildPaar
             JSONObject wordBildPaarObject = new JSONObject();
             wordBildPaarObject.put("bild", paar.getBild());
             wordBildPaarObject.put("wort", paar.getWort());
 
-            // Füge das JSONObject dem JSONArray hinzu
             wordBildPaareArray.put(wordBildPaarObject);
         }
 
-        // Füge das JSONArray dem JSON-Objekt hinzu
         session.put("wordBildPaare", wordBildPaareArray);
         session.put("aktuellesWordBildPaar", "Irrelevant");
         session.put("richtige Antworten", anzahlRichtig);
         session.put("falsche Antworten", anzahlFalsch);
 
-        // Schreibe das JSON-Objekt in die Datei
         writer.write(session.toString(4)); // "4" sorgt für eine schön formatierte Ausgabe
         writer.flush();
         writer.close();

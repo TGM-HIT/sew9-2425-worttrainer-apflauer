@@ -44,29 +44,33 @@ public class RechtschreibTrainer {
     }
 
     public void display() throws IOException {
-        // Initialisiere Random für die Zufallsauswahl
         Random random = new Random();
-
-// Wähle das erste Paar zufällig aus
         this.aktuellesPaar = this.paare.get(random.nextInt(this.paare.size()));
-
-// Iteriere über die Paare
         while (!this.paare.isEmpty()) {
             Image image = ImageIO.read(new URL(this.aktuellesPaar.getBild()));
             image = image.getScaledInstance(400, 400, Image.SCALE_DEFAULT);
             String antwort = (String) JOptionPane.showInputDialog(null, "Was ist auf dem Bild zu sehen? (case sensetive)", "AktuellesBild", JOptionPane.QUESTION_MESSAGE, new ImageIcon(image), null, null);
-            if (this.aktuellesPaar.getWort().equals(antwort)) {
-                this.anzahlRichtig++;
-            } else {
-                this.anzahlFalsch++;
-            }
+            countAnswers(antwort);
             this.paare.remove(this.aktuellesPaar);
             if (this.paare.isEmpty()) {
                 break;
             }
             this.aktuellesPaar = this.paare.get(random.nextInt(this.paare.size()));
+            setNewRandomPaar(random);
         }
         JOptionPane.showMessageDialog(null, statistikMSG());
+    }
+
+    public void countAnswers(String antwort) {
+        if (this.aktuellesPaar.getWort().equals(antwort)) {
+            this.anzahlRichtig++;
+        } else {
+            this.anzahlFalsch++;
+        }
+    }
+
+    public void setNewRandomPaar(Random r) {
+        this.aktuellesPaar = this.paare.get(r.nextInt(this.paare.size()));
     }
 
     public String statistikMSG() {
