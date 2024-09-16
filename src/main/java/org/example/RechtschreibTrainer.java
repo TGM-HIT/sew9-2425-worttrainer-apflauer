@@ -77,4 +77,25 @@ public class RechtschreibTrainer {
         return "Anzahl richtiger Antworten: " + this.anzahlRichtig + "\n" +
                 "Anzahl falscher Antworten: " + this.anzahlFalsch;
     }
+
+    public int getAnzahlRichtig() {
+
+        return anzahlRichtig;
+    }
+
+    public int getAnzahlFalsch() {
+        return anzahlFalsch;
+    }
+
+    public List<WortBildPaar> getPaare() {
+        return paare;
+    }
+
+    public WortBildPaar getAktuellesPaar() {
+        return aktuellesPaar;
+    }
+
+    public SpeicherStrategie getSpeicherStrategie() {
+        return speicherStrategie;
+    }
 }
