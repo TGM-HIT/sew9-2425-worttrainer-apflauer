@@ -51,6 +51,10 @@ public class JSONSpeicherStrategie implements SpeicherStrategie {
             return jsonObject;
 
         } catch (FileNotFoundException e) {
+
+            // Github Issue #2
+            // Solved by adding a default session to the JSON file if the file is not found
+
             JSONObject session = new JSONObject();
             WortBildPaar wortBildPaar1 = new WortBildPaar("https://www.wwf.at/wp-content/uploads/2021/05/2final_wwf-at_Loewe_Bruellen_cSteveMorello.jpg", "löwe");
             WortBildPaar wortBildPaar2 = new WortBildPaar("https://s1.1zoom.me/big7/392/Dogs_Australian_499239.jpg","hund");
