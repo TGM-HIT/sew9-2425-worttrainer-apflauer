@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.json:json:20210307")
+    implementation("org.json:json:20210307")           // JSON library included 1. EK task
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }

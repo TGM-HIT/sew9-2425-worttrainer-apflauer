@@ -23,10 +23,7 @@ public class WortBildPaar {
         if (bild == null) {
             throw new IllegalAccessException("Bild darf nicht null sein");
         }
-
         URL u = new URL(bild);
-        u.toURI();  // does the extra checking required for validation of URI
-
         if (!isImageLink(u)) {
             throw new IllegalArgumentException("Die angegebene URL ist kein Bild");
         }

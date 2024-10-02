@@ -45,7 +45,7 @@ public class RechtschreibTrainer {
 
     public void display() throws IOException {
         Random random = new Random();
-        this.aktuellesPaar = this.paare.get(random.nextInt(this.paare.size()));
+        setNewRandomPaar(random);
         while (!this.paare.isEmpty()) {
             Image image = ImageIO.read(new URL(this.aktuellesPaar.getBild()));
             image = image.getScaledInstance(400, 400, Image.SCALE_DEFAULT);

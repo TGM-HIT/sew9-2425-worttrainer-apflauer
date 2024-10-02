@@ -1,0 +1,15 @@
+{
+    "falsche Antworten": 0,
+    "wordBildPaare": [
+        {
+            "bild": "https://static.turbosquid.com/Preview/2019/02/18__04_59_25/Crash_Test_Dummy_Rigged_mb_00.jpg5B1ADE98-2892-494F-9EB2-F0B49A1BE375DefaultHQ.jpg",
+            "wort": "Dummy"
+        },
+        {
+            "bild": "https://static.turbosquid.com/Preview/2019/02/18__04_59_25/Crash_Test_Dummy_Rigged_mb_00.jpg5B1ADE98-2892-494F-9EB2-F0B49A1BE375DefaultHQ.jpg",
+            "wort": "Dummy2"
+        }
+    ],
+    "richtige Antworten": 0,
+    "aktuellesWordBildPaar": "Irrelevant"
+}
