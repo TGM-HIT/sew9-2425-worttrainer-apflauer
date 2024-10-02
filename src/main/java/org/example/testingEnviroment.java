@@ -21,6 +21,7 @@ public class testingEnviroment {
     public static void main(String[] args) throws IOException, URISyntaxException, IllegalAccessException {
         JSONSpeicherStrategie jsonSpeicherStrategie = new JSONSpeicherStrategie();
         RechtschreibTrainer trainer = new RechtschreibTrainer(jsonSpeicherStrategie);
+
         trainer.laden("test1.json");
 
         trainer.display();

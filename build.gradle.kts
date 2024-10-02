@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "org.example"
@@ -10,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.json:json:20210307")           // JSON library included 1. EK task
+    implementation("org.json:json:20210307")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
@@ -25,4 +26,8 @@ tasks.jar {
             "Main-Class" to "org.example.testingEnviroment"
         )
     }
+}
+
+tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+    archiveClassifier.set("")
 }
